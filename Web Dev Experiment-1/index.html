@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+        Project: Personal Portfolio Website
+        Developer: Prem Kumar
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio - Prem Kumar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Prem Kumar</h1>
+        <p class="tagline">B.Tech CSE Student | Aspiring Web Developer</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#welcome">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="welcome-section">
+        <h2>Welcome to My Portfolio</h2>
+        <p>
+            Welcome to my personal portfolio website. This platform highlights my
+            technical skills, academic background, and sample projects developed
+            using web technologies.
+        </p>
+        <button id="welcomeBtn" class="btn-primary">Thank You for Visiting!</button>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about-section">
+        <h2>About Me</h2>
+        <p>
+            I am a Computer Science Engineering student with a strong interest in
+            front-end web development. I enjoy transforming ideas into clean,
+            responsive, and user-friendly web interfaces.
+        </p>
+        <p>
+            Currently, I am improving my skills in HTML, CSS, and JavaScript while
+            working on academic and personal projects.
+        </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <h2>Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill-card">
+                <h3>HTML5</h3>
+                <p>Semantic structure and accessibility</p>
+            </div>
+            <div class="skill-card">
+                <h3>CSS3</h3>
+                <p>Layout, styling, flexbox, and responsive design</p>
+            </div>
+            <div class="skill-card">
+                <h3>JavaScript</h3>
+                <p>Basic logic and DOM manipulation</p>
+            </div>
+            <div class="skill-card">
+                <h3>Java</h3>
+                <p>Object-oriented programming fundamentals</p>
+            </div>
+            <div class="skill-card">
+                <h3>Data Structures</h3>
+                <p>Arrays, strings, recursion, problem-solving</p>
+            </div>
+            <div class="skill-card">
+                <h3>C / C++</h3>
+                <p>Programming fundamentals</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <h2>Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Personal Portfolio Website</h3>
+                <p>
+                    A responsive and professional portfolio website created using
+                    semantic HTML and modern CSS design principles. Features interactive
+                    JavaScript elements for enhanced user experience.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Temperature Conversion Tool</h3>
+                <p>
+                    A simple project concept designed to convert temperature values
+                    between Celsius and Fahrenheit using basic logic and DOM manipulation.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Student Management System</h3>
+                <p>
+                    A console-based application to manage student records including
+                    adding, updating, and deleting student information using Java.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">OOP</span>
+                </div>
+            </div>
+        </div>
+        <button id="toggleProjects" class="btn-secondary">Hide Projects</button>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact Me</h2>
+        <div class="contact-info">
+            <p><strong>Email:</strong> pkyt090@gmail.com</p>
+            <p><strong>Phone:</strong> +91-7701898396</p>
+            <p><strong>Location:</strong> Delhi, India</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+            <h3>Send Me a Message</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+            <div id="formMessage" class="form-message"></div>
+        </div>
+
+        <button id="scrollToTop" class="btn-secondary scroll-btn">Scroll to Top</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p> Prem Kumar</p>
+    </footer>
+
+    <!-- Link to JavaScript File -->
+    <script src="script.js"></script>
+
+</body>
+</html>

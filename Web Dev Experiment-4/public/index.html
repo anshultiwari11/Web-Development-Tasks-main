@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced To-Do List with Email Reminders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  
+  <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">✓</span>
+        </div>
+        <h1 class="header-title">TaskMaster</h1>
+        <p class="header-subtitle">Dynamic To-Do List </p>
+      </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+      <!-- Input Section -->
+      <section class="input-section">
+        <div class="section-header">
+          <h2>Create New Task</h2>
+          <span class="section-icon">📋</span>
+        </div>
+
+        <form class="input-form" id="taskForm">
+          <div class="form-group">
+            <label for="emailInput" class="form-label">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input
+                type="email"
+                id="emailInput"
+                placeholder="your.email@example.com"
+                class="input-field"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reminderInput" class="form-label">Reminder Time</label>
+              <div class="input-wrapper">
+                <span class="input-icon">⏰</span>
+                <input
+                  type="datetime-local"
+                  id="reminderInput"
+                  class="input-field"
+                  title="Select when you want to receive the reminder"
+                  required
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskInput" class="form-label">Task Description</label>
+            <div class="input-wrapper">
+              <span class="input-icon">✏️</span>
+              <input
+                type="text"
+                id="taskInput"
+                placeholder="What needs to be done..."
+                class="input-field"
+              >
+            </div>
+          </div>
+
+          <button id="addBtn" class="btn btn-primary btn-add">
+            <span class="btn-icon">➕</span>
+            <span class="btn-text">Add Task</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Task List Section -->
+      <section class="tasks-section">
+        <div class="section-header">
+          <h2>Your Tasks</h2>
+          <span class="task-counter" id="taskCounter">0</span>
+        </div>
+        <div id="tasksList" class="tasks-list">
+          <p class="no-tasks">✨ No tasks yet. Create one to get started!</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Status Messages -->
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+
+  <!-- Loading spinner -->
+  <div id="loadingSpinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

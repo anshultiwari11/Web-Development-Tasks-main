@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Master — Take Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body class="quiz-page">
+
+  <div class="bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+  </div>
+
+  <div class="quiz-wrapper">
+
+    <!-- Header -->
+    <header class="quiz-header">
+      <a href="{{ url_for('index') }}" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Home
+      </a>
+      <div class="timer-box" id="timerBox">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+        </svg>
+        <span id="timer">2:00</span>
+      </div>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Progress</span>
+        <span id="answeredCount">0 / {{ total }} answered</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" action="{{ url_for('quiz') }}" id="quizForm">
+
+      {% for q in questions %}
+      <div class="question-card" id="card-{{ loop.index }}">
+        <div class="question-num">Question {{ loop.index }} of {{ total }}</div>
+        <h2 class="question-text">{{ q.question }}</h2>
+
+        <div class="options-grid">
+          {% for option in q.shuffled_options %}
+          <label class="option-label" for="q{{ q.id }}_{{ loop.index }}">
+            <input
+              type="radio"
+              name="q{{ q.id }}"
+              id="q{{ q.id }}_{{ loop.index }}"
+              value="{{ option }}"
+              class="option-radio"
+            />
+            <span class="option-letter">{{ ['A','B','C','D'][loop.index0] }}</span>
+            <span class="option-text">{{ option }}</span>
+            <span class="option-check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="question-nav">
+          {% if loop.index > 1 %}
+          <button type="button" class="nav-btn" onclick="scrollToCard({{ loop.index - 1 }})">
+            ← Previous
+          </button>
+          {% else %}
+          <span></span>
+          {% endif %}
+
+          {% if loop.index < total %}
+          <button type="button" class="nav-btn nav-btn-next" onclick="scrollToCard({{ loop.index + 1 }})">
+            Next →
+          </button>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Submit -->
+      <div class="submit-section">
+        <div class="submit-warning" id="submitWarning" style="display:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span id="warningText">You have unanswered questions.</span>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          Submit Quiz
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    // Timer (120 seconds)
+    let timeLeft = 120;
+    const timerEl = document.getElementById("timer");
+    const timerBox = document.getElementById("timerBox");
+
+    const countdown = setInterval(() => {
+      timeLeft--;
+      const m = Math.floor(timeLeft / 60);
+      const s = timeLeft % 60;
+      timerEl.textContent = m + ":" + String(s).padStart(2, "0");
+
+      if (timeLeft <= 30) timerBox.classList.add("timer-warning");
+      if (timeLeft <= 10) timerBox.classList.add("timer-critical");
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        document.getElementById("quizForm").submit();
+      }
+    }, 1000);
+
+    // Track answered count
+    const radios = document.querySelectorAll(".option-radio");
+    const answeredSets = new Set();
+    const total = {{ total }};
+
+    function updateProgress() {
+      const pct = (answeredSets.size / total) * 100;
+      document.getElementById("progressFill").style.width = pct + "%";
+      document.getElementById("answeredCount").textContent =
+        answeredSets.size + " / " + total + " answered";
+    }
+
+    radios.forEach(r => {
+      r.addEventListener("change", () => {
+        answeredSets.add(r.name);
+        updateProgress();
+      });
+    });
+
+    // Submit guard
+    document.getElementById("quizForm").addEventListener("submit", (e) => {
+      if (answeredSets.size < total) {
+        const unanswered = total - answeredSets.size;
+        const warn = document.getElementById("submitWarning");
+        const warnText = document.getElementById("warningText");
+        warnText.textContent = unanswered + " question(s) unanswered. Skipped questions score 0 (no negative). Submit anyway?";
+        warn.style.display = "flex";
+
+        if (!warn.dataset.confirmed) {
+          e.preventDefault();
+          warn.dataset.confirmed = "pending";
+          document.getElementById("submitBtn").textContent = "Confirm Submit";
+          document.getElementById("submitBtn").classList.add("confirm-mode");
+        }
+      }
+    });
+
+    // Smooth scroll to card
+    function scrollToCard(n) {
+      const card = document.getElementById("card-" + n);
+      if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  </script>
+
+</body>
+</html>

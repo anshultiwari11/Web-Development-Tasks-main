@@ -1,0 +1,95 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#0f0f1e;--bg2:#1a1a2e;--card:#1f1f3d;
+  --p:#00d4ff;--s:#7c3aed;--t:#06b6d4;
+  --txt:#e5e7eb;--txt2:#9ca3af;--txt3:#6b7280;
+  --shadow:0 10px 30px rgba(0,0,0,.3);
+  --trans:.3s ease;
+}
+
+body{
+  font-family:Segoe UI,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  padding:20px;
+}
+
+/* Container */
+.container{
+  max-width:800px;margin:auto;
+  background:rgba(26,26,46,.7);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+/* Header */
+.header{
+  padding:30px 20px;text-align:center;
+  background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(0,212,255,.1));
+}
+
+.header-title{
+  font-size:2em;
+  background:linear-gradient(135deg,var(--p),var(--s));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Sections */
+.section-header{
+  display:flex;justify-content:space-between;
+  margin-bottom:15px;border-bottom:1px solid rgba(124,58,237,.2);
+}
+
+/* Inputs */
+.input-section{
+  padding:20px;margin:20px 0;
+  background:rgba(31,31,61,.5);
+  border-radius:10px;
+}
+
+.input-field{
+  width:100%;padding:10px;
+  border:1px solid rgba(124,58,237,.3);
+  border-radius:8px;
+  background:#0f0f1e;color:var(--txt);
+}
+
+/* Buttons */
+.btn{
+  padding:10px 15px;border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:var(--trans);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--s),var(--p));
+  color:#fff;
+}
+
+/* Tasks */
+.tasks-list{display:flex;flex-direction:column;gap:10px}
+
+.task-item{
+  padding:15px;border-radius:10px;
+  background:rgba(31,31,61,.5);
+  display:flex;justify-content:space-between;
+}
+
+/* Status */
+.status-message{
+  display:none;padding:10px;
+  border-radius:8px;margin-top:10px;
+}
+
+.status-message.success{background:#10b98133;color:#10b981}
+.status-message.error{background:#ef444433;color:#ef4444}
+
+/* Responsive */
+@media(max-width:600px){
+  .container{border-radius:10px}
+  .header-title{font-size:1.5em}
+  .task-item{flex-direction:column}
+}
